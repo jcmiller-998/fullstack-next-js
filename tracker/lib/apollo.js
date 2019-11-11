@@ -56,10 +56,13 @@ export function withApollo(PageComponent) {
     return WithApollo;
 }
 
+const isDev = process.env.NODE_ENV !== 'production';
+const url = isDev ? 'http;//localhost:3000' : 'https://prod.env';
+
 const initApolloClient = (initialState = {}) => {
     const cache = new InMemoryCache();
     const link = new HttpLink({
-        uri: `http://localhost:3000/api/graphql`
+        uri: `{url}/api/graphql`
     });
     const ssrMode = typeof window === 'undefined';
     const client = new ApolloClient({
